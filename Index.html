@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6d45d8">
+<title>Lingua — Penerjemah Bahasa</title>
+<style>
+:root{--purple:#7046dc;--deep:#4d2ca8;--pale:#f4f0ff;--ink:#25213a;--muted:#77738a;--line:#e8e3f2}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:linear-gradient(135deg,#faf8ff 0%,#f0eaff 100%);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}
+header{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(6vw,22px)}
+.brand{display:flex;align-items:center;gap:11px;font-size:24px;font-weight:800;letter-spacing:-.7px;color:var(--deep)}
+.logo{width:39px;height:39px;border-radius:13px;background:linear-gradient(135deg,#8c69f0,#5d36c6);display:grid;place-items:center;color:white;font-size:21px;box-shadow:0 6px 16px #7046dc44}
+.tag{font-size:13px;color:var(--muted)}
+main{width:min(1040px,90%);margin:55px auto 50px}
+.intro{text-align:center;margin-bottom:34px}
+.eyebrow{display:inline-block;padding:7px 13px;border-radius:30px;background:#e9e0ff;color:var(--deep);font-size:12px;font-weight:700;letter-spacing:.5px}
+h1{font-size:clamp(30px,5vw,43px);margin:15px 0 9px;letter-spacing:-1.5px}
+.intro p{color:var(--muted);margin:0;font-size:15px}
+.translator{background:#fff;border:1px solid #ece7f5;border-radius:23px;padding:25px;box-shadow:0 18px 55px #49308b12}
+.languages{display:grid;grid-template-columns:1fr 52px 1fr;align-items:center;gap:13px;margin-bottom:19px}
+.language-box{display:flex;align-items:center;gap:12px;background:#faf9fd;border:1px solid var(--line);border-radius:13px;padding:10px 14px}
+.language-box label{font-size:12px;color:var(--muted);white-space:nowrap}
+select{border:0;background:transparent;color:var(--ink);font:600 14px inherit;font-size:14px;outline:none;width:100%;cursor:pointer}
+.swap{height:43px;width:43px;border-radius:13px;border:1px solid #e6def7;background:#f5f1ff;color:var(--deep);font-size:21px;cursor:pointer;transition:.2s}
+.swap:hover{background:#e9e0ff;transform:rotate(180deg)}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.panel{border:1px solid var(--line);border-radius:16px;overflow:hidden;min-width:0}
+.panel-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700}
+.panel-head span:last-child{font-size:11px;color:#9994a8;font-weight:500}
+textarea,.result{width:100%;height:210px;resize:vertical;border:0;outline:0;padding:17px 16px;font:15px/1.65 inherit;font-family:inherit;font-size:15px;line-height:1.65;color:var(--ink);background:#fff}
+textarea::placeholder{color:#aaa5b7}
+.result{white-space:pre-wrap;overflow:auto;color:#373047}
+.result.empty{color:#aaa5b7}
+.panel-foot{height:43px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 14px;color:#9994a8;font-size:11px}
+.mini-btn{border:0;background:transparent;color:#6e48d0;font-size:12px;font-weight:700;cursor:pointer;padding:7px}
+.actions{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:20px}
+.hint{font-size:12px;color:var(--muted);line-height:1.5}
+.primary{border:0;border-radius:13px;padding:14px 25px;background:linear-gradient(135deg,#8058eb,#5d37c5);color:#fff;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 8px 18px #7046dc38;min-width:160px;transition:.2s}
+.primary:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.primary:disabled{opacity:.65;cursor:wait;transform:none}
+.status{min-height:22px;margin-top:12px;font-size:12px;color:var(--muted);text-align:right}
+.status.error{color:#c04461}
+footer{text-align:center;color:#9994a8;font-size:12px;padding:0 18px 28px}
+@media(max-width:680px){header{height:66px}.tag{display:none}main{margin:34px auto}.translator{padding:16px;border-radius:18px}.languages{grid-template-columns:1fr 42px 1fr;gap:7px}.language-box{padding:10px 8px;display:block}.language-box label{display:block;margin-bottom:5px}.swap{width:39px;height:39px}.panels{grid-template-columns:1fr}.textarea,.result{height:155px}textarea,.result{height:155px}.actions{align-items:stretch;flex-direction:column-reverse}.primary{width:100%}.status{text-align:left}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo">文</div>Lingua</div>
+  <div class="tag">Terjemahkan kata, hubungkan dunia.</div>
+</header>
+<main>
+  <section class="intro">
+    <span class="eyebrow">PENERJEMAH BAHASA ONLINE</span>
+    <h1>Bahasa bukan lagi batas.</h1>
+    <p>Terjemahkan teks dengan mudah dan cepat bersama Lingua.</p>
+  </section>
+  <section class="translator" aria-label="Penerjemah Lingua">
+    <div class="languages">
+      <div class="language-box"><label for="sourceLang">Dari</label><select id="sourceLang">
+        <option value="id" selected>🇮🇩 Indonesia</option><option value="en">🇬🇧 Inggris</option><option value="ja">🇯🇵 Jepang</option><option value="ko">🇰🇷 Korea</option><option value="zh-CN">🇨🇳 Mandarin</option>
+      </select></div>
+      <button class="swap" id="swapBtn" title="Tukar bahasa" aria-label="Tukar bahasa">⇄</button>
+      <div class="language-box"><label for="targetLang">Ke</label><select id="targetLang">
+        <option value="id">🇮🇩 Indonesia</option><option value="en" selected>🇬🇧 Inggris</option><option value="ja">🇯🇵 Jepang</option><option value="ko">🇰🇷 Korea</option><option value="zh-CN">🇨🇳 Mandarin</option>
+      </select></div>
+    </div>
+    <div class="panels">
+      <div class="panel">
+        <div class="panel-head"><span>Teks sumber</span><span id="sourceName">Indonesia</span></div>
+        <textarea id="sourceText" maxlength="5000" placeholder="Ketik atau tempel teks yang ingin diterjemahkan..."></textarea>
+        <div class="panel-foot"><button class="mini-btn" id="clearBtn">Hapus teks</button><span id="charCount">0 / 5.000</span></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><span>Hasil terjemahan</span><span id="targetName">Inggris</span></div>
+        <div class="result empty" id="translatedText" aria-live="polite">Hasil terjemahan akan muncul di sini.</div>
+        <div class="panel-foot"><span>Lingua Translate</span><button class="mini-btn" id="copyBtn">▢ Salin hasil</button></div>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="hint">✦ Periksa kembali hasil terjemahan untuk konteks yang penting.</div>
+      <button class="primary" id="translateBtn">Terjemahkan&nbsp; →</button>
+    </div>
+    <div class="status" id="status" role="status"></div>
+  </section>
+</main>
+<footer>© 2026 Lingua · Terjemahan praktis untuk semua.</footer>
+<script>
+const $=id=>document.getElementById(id);
+const names={id:"Indonesia",en:"Inggris",ja:"Jepang",ko:"Korea","zh-CN":"Mandarin"};
+const source=$("sourceLang"),target=$("targetLang"),input=$("sourceText"),output=$("translatedText"),status=$("status"),translateBtn=$("translateBtn");
+function updateNames(){$("sourceName").textContent=names[source.value];$("targetName").textContent=names[target.value]}
+source.addEventListener("change",updateNames);target.addEventListener("change",updateNames);
+input.addEventListener("input",()=>{$("charCount").textContent=`${input.value.length.toLocaleString("id-ID")} / 5.000`;});
+$("swapBtn").addEventListener("click",()=>{const old=source.value;source.value=target.value;target.value=old;const oldText=input.value;input.value=output.classList.contains("empty")?"":output.textContent;output.textContent=oldText||"Hasil terjemahan akan muncul di sini.";output.classList.toggle("empty",!oldText);$("charCount").textContent=`${input.value.length.toLocaleString("id-ID")} / 5.000`;updateNames();status.textContent="Bahasa berhasil ditukar.";status.className="status";});
+$("clearBtn").addEventListener("click",()=>{input.value="";$("charCount").textContent="0 / 5.000";input.focus();});
+$("copyBtn").addEventListener("click",async()=>{if(output.classList.contains("empty")||!output.textContent.trim())return;try{await navigator.clipboard.writeText(output.textContent);status.textContent="Hasil terjemahan berhasil disalin.";status.className="status";}catch(e){status.textContent="Gagal menyalin. Silakan salin teks secara manual.";status.className="status error";}});
+translateBtn.addEventListener("click",async()=>{
+ const text=input.value.trim();if(!text){status.textContent="Masukkan teks yang ingin diterjemahkan terlebih dahulu.";status.className="status error";input.focus();return}
+ if(source.value===target.value){status.textContent="Pilih bahasa asal dan tujuan yang berbeda.";status.className="status error";return}
+ translateBtn.disabled=true;translateBtn.textContent="Menerjemahkan...";status.textContent="Sedang memproses terjemahan.";status.className="status";
+ try{
+  const url=`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${encodeURIComponent(source.value)}%7C${encodeURIComponent(target.value)}`;
+  const response=await fetch(url);if(!response.ok)throw new Error("Layanan terjemahan sedang tidak tersedia.");
+  const data=await response.json();const translated=data?.responseData?.translatedText;
+  if(!translated||data.responseStatus!==200)throw new Error(data?.responseDetails||"Terjemahan belum dapat dibuat. Coba lagi nanti.");
+  output.textContent=translated;output.classList.remove("empty");status.textContent="Terjemahan selesai.";status.className="status";
+ }catch(err){status.textContent=err.message||"Terjadi kendala koneksi. Periksa internet dan coba lagi.";status.className="status error"}
+ finally{translateBtn.disabled=false;translateBtn.innerHTML="Terjemahkan&nbsp; →"}
+});
+</script>
+</body>
+</html>
